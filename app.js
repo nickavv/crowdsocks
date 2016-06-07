@@ -1,8 +1,10 @@
 // Dependencies
 var express = require('express');
-var jade = require('pug');
-
 var app = express();
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var jade = require('pug');
 
 // Attach compiled static resources (.styl > .css)
 app.use(express.static(__dirname + '/static'));
@@ -22,6 +24,26 @@ app.get('/', function(req, res, next) {
   }
 });
 
+app.get('/start-game/:gameid', function(req, res, next) {
+    try {
+      var responseObject = {
+        roomId: generateCode(),
+        gameId: req.params.gameid
+      }
+      res.send(responseObject);
+    } catch (e) {
+      next(e);
+    }
+});
+
 app.listen(process.env.PORT || 3000, function() {
   console.log('Listening on http://localhost:' + (process.env.PORT || 3000));
 });
+
+function generateCode() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
