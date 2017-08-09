@@ -1,0 +1,3 @@
+after_success:
+  - bash <(curl -s https://blackducksoftware.github.io/hub-detect/hub-detect.sh)
+  - bash <(curl -s http://localhost:8091/bash/travis) ./build/blackduck/*_bdio.jsonld
