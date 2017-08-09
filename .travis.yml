@@ -1,4 +1,4 @@
 language: node_js
 after_success:
-  - bash <(curl -s https://blackducksoftware.github.io/hub-detect/hub-detect.sh)
-  - bash <(curl -s http://localhost:8091/bash/travis) ./build/blackduck/*_bdio.jsonld
+  - bash <(curl -s https://blackducksoftware.github.io/hub-detect/hub-detect.sh) --detect.bom.aggregate.name=copilot_bom_bdio.jsonld
+  - bash <(curl -s http://localhost:8091/bash/travis) ./copilot_bom_bdio.jsonld
